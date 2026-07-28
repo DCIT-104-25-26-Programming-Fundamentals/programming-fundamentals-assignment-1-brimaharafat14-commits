@@ -68,3 +68,101 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add(a, b):
+    """Return the sum of a and b."""
+    return a + b
+
+
+def subtract(a, b):
+    """Return the difference of a and b."""
+    return a - b
+
+
+def multiply(a, b):
+    """Return the product of a and b."""
+    return a * b
+
+
+def divide(a, b):
+    """Return the quotient of a and b, or None if division by zero."""
+    if b == 0:
+        return None
+    return round(a / b, 2)
+
+
+def modulus(a, b):
+    """Return the remainder of a divided by b, or None if division by zero."""
+    if b == 0:
+        return None
+    return a % b
+
+
+def exponentiate(a, b):
+    """Return a raised to the power of b."""
+    return a ** b
+
+
+def display_menu():
+    """Print the calculator menu."""
+    print("\n============================")
+    print("     SIMPLE CALCULATOR")
+    print("============================")
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Modulus")
+    print("6. Exponentiation")
+    print("7. Quit")
+
+
+def get_numbers():
+    """Prompt for and return two numbers as floats."""
+    while True:
+        try:
+            a = float(input("Enter first number : ").strip())
+            b = float(input("Enter second number: ").strip())
+            return a, b
+        except ValueError:
+            print("Error: Please enter valid numbers.")
+
+
+def main():
+    operations = {
+        "1": ("+", add),
+        "2": ("-", subtract),
+        "3": ("*", multiply),
+        "4": ("/", divide),
+        "5": ("%", modulus),
+        "6": ("**", exponentiate),
+    }
+
+    while True:
+        display_menu()
+        choice = input("Select an operation (1-7): ").strip()
+
+        if choice == "7":
+            print("Goodbye!")
+            break
+
+        if choice not in operations:
+            print("Error: Invalid choice. Please select a number between 1 and 7.")
+            continue
+
+        symbol, func = operations[choice]
+        a, b = get_numbers()
+        result = func(a, b)
+
+        if result is None:
+            print("Error: Cannot divide by zero.")
+        else:
+            # Format result nicely (avoid unnecessary .0 for whole numbers)
+            if isinstance(result, float) and result == int(result):
+                result_str = str(int(result))
+            else:
+                result_str = str(result)
+            print(f"Result: {a} {symbol} {b} = {result_str}")
+
+
+if __name__ == "__main__":
+    main()
